@@ -47,7 +47,7 @@ async function handleRegister() {
         <img src="../assets/hoshino.jpg" alt="Logo" class="w-16 h-16 rounded-full shadow" />
       </div>
       <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Register</h2>
-      <form @submint.prevent="handleRegister" class="space-y-4">
+      <form @submit.prevent="handleRegister" class="space-y-4">
         <div>
           <label class="block text-sm font-medium text-gray-700">Username</label>
           <input v-model="name" type="text" class="w-full border p-2 rounded sm:text-sm" required />
