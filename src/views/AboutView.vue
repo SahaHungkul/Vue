@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
+    <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
   </div>
 </template>
 
