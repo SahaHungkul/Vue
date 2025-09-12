@@ -1,28 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
-import RegisterPage from '@/views/RegisterPage.vue'
+import HomeView from '../pages/user/HomeView.vue'
+import LoginView from '@/pages/LoginView.vue'
+import RegisterPage from '@/pages/RegisterPage.vue'
 
 import AdminLayout from '../layouts/AdminLayout.vue'
 import UserLayout from '../layouts/UserLayout.vue'
-import DashboardPage from '../views/admin/DashboardPage.vue'
-import UserManagement from '@/views/admin/UserManagement.vue'
+import DashboardPage from '../pages/admin/DashboardPage.vue'
+import UserManagement from '@/pages/admin/UserManagement.vue'
+import MyBookings from '../pages/user/MyBookings.vue'
+import EventsPage from '@/pages/admin/EventsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: { guest: true },
     },
     {
       path: '/register',
@@ -30,9 +25,18 @@ const router = createRouter({
       component: RegisterPage,
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+    },
+
+    {
       path: '/',
       component: UserLayout,
-      children: [{ path: 'home', name: 'Home', component: HomeView }],
+      children: [
+        { path: 'home', name: 'Home', component: HomeView },
+        { path: 'my-bookings', name: 'MyBookings', component: MyBookings },
+      ],
     },
     {
       path: '/admin',
@@ -40,6 +44,7 @@ const router = createRouter({
       children: [
         { path: 'dashboard', name: 'Dashboard', component: DashboardPage },
         { path: 'users', name: 'Users', component: UserManagement },
+        { path: 'event', name: 'Event', component: EventsPage },
       ],
     },
   ],
