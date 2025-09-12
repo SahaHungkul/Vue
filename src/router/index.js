@@ -3,9 +3,10 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 
-import AdminLayout from '@/layouts/AdminLayout.vue'
-import UserLayout from '@/layouts/UserLayout.vue'
-import DashboardPage from '@/views/DashboardPage.vue'
+import AdminLayout from '../layouts/AdminLayout.vue'
+import UserLayout from '../layouts/UserLayout.vue'
+import DashboardPage from '../views/admin/DashboardPage.vue'
+import UserManagement from '@/views/admin/UserManagement.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,16 +32,15 @@ const router = createRouter({
     {
       path: '/',
       component: UserLayout,
-      children:[
-        {path: 'home', name: 'Home', component: HomeView},
-      ]
+      children: [{ path: 'home', name: 'Home', component: HomeView }],
     },
     {
       path: '/admin',
       component: AdminLayout,
       children: [
-        {path: 'dashboard', name: 'Dashboard' ,component: DashboardPage},
-      ]
+        { path: 'dashboard', name: 'Dashboard', component: DashboardPage },
+        { path: 'users', name: 'Users', component: UserManagement },
+      ],
     },
   ],
 })

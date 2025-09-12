@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <p>ini Dashboard</p>
+  <p>ini user</p>
 </template>
 
 <style scoped></style>
