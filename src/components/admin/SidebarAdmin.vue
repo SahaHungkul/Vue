@@ -13,6 +13,8 @@
           active-class="bg-blue-600 text-white">
           Users
         </router-link>
+        <router-link to="/admin/events" class="block px-3 py-2 rounded hover:bg-gray-200"
+          active-class="bg-blue-600 text-white">Event</router-link>
       </nav>
     </aside>
   </div>

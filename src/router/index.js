@@ -9,10 +9,17 @@ import DashboardPage from '../pages/admin/DashboardPage.vue'
 import UserManagement from '@/pages/admin/UserManagement.vue'
 import MyBookings from '../pages/user/MyBookings.vue'
 import EventsPage from '@/pages/admin/EventsPage.vue'
+import UserEvent from '@/pages/user/UserEvent.vue'
+import MyProfile from '@/pages/Profile.vue'
+import api from '@/utils/api'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      redirect: 'home',
+    },
     {
       path: '/login',
       name: 'login',
@@ -27,7 +34,12 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      component: () => import('../pages/AboutView.vue'),
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: MyProfile,
     },
 
     {
@@ -35,7 +47,8 @@ const router = createRouter({
       component: UserLayout,
       children: [
         { path: 'home', name: 'Home', component: HomeView },
-        { path: 'my-bookings', name: 'MyBookings', component: MyBookings },
+        { path: 'bookings', name: 'MyBookings', component: MyBookings },
+        { path: 'events', name: 'UserEvent', component: UserEvent },
       ],
     },
     {
@@ -44,8 +57,33 @@ const router = createRouter({
       children: [
         { path: 'dashboard', name: 'Dashboard', component: DashboardPage },
         { path: 'users', name: 'Users', component: UserManagement },
-        { path: 'event', name: 'Event', component: EventsPage },
+        { path: 'events', name: 'Events', component: EventsPage },
       ],
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      beforeEnter: async (to, from, next) => {
+        try {
+          await api.post(
+            'http://localhost:8000/api/logout',
+            {},
+            {
+              header: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            },
+          )
+        } catch (err) {
+          console.log(err.response?.data || err.message)
+        } finally {
+          // Hapus token dari localStorage
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          // Redirect ke login
+          next('/login')
+        }
+      },
     },
   ],
 })
