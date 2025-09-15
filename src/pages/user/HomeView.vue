@@ -1,9 +1,9 @@
 <script setup>
+import { useUserStore } from '@/stores/user'
 
-import { useUserStore } from "@/stores/user"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Calendar, Ticket, Info } from "lucide-vue-next"
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Calendar, Ticket, Info } from 'lucide-vue-next';
 
 const userStore = useUserStore()
 </script>
@@ -11,7 +11,7 @@ const userStore = useUserStore()
 <template>
   <div class="p-6 space-y-6">
     <!-- Judul -->
-    <h1 class="text-2xl font-bold">Selamat Datang di EventApp, {{ userStore.user?.name }} 🎉</h1>
+    <h1 class="text-2xl font-bold">Selamat Datang di EventApp, {{ userStore.user?.name || 'guest' }} 🎉</h1>
     <p class="text-muted-foreground">Temukan dan pesan tiket event favoritmu dengan mudah</p>
 
     <!-- Highlight Section -->
