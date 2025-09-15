@@ -3,22 +3,23 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 
-const email = ref("")
-const password = ref("")
+const email = ref('')
+const password = ref('')
 const showPassword = ref(false)
 const loading = ref(false)
+const errorMessage = ref('')
 
 const router = useRouter()
 const userStore = useUserStore()
 
 async function handleLogin() {
-  loading.value = true
+  loading.value = true;
+  errorMessage.value = '';
   try {
     await userStore.login(email.value, password.value)
-
     router.push('/home')
   } catch (err) {
-    alert(err.response?.data?.message || "Login gagal")
+    errorMessage.value = err.response?.data?.message || err.message || 'Login gagal';
   } finally {
     loading.value = false
   }
@@ -52,6 +53,7 @@ async function handleLogin() {
         <button :disabled="loading" class="w-full bg-blue-500 text-white p-2 rounded cursor-pointer">
           {{ loading ? "Loading..." : "Login" }}
         </button>
+        <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
       </form>
       <p class="text-sm text-center mt-4 text-gray-600">
         Belum punya akun?
