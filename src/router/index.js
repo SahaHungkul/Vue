@@ -1,22 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
-import Login from '@/pages/LoginView.vue'
-import Register from '@/pages/RegisterPage.vue'
+import Login from '@/pages/auth/LoginView.vue'
+import Register from '@/pages/auth/RegisterPage.vue'
 import About from '@/pages/AboutView.vue'
 
 import AdminLayout from '../layouts/AdminLayout.vue'
 import DashboardPage from '../pages/admin/DashboardPage.vue'
-import UserManagement from '@/pages/admin/UserManagement.vue'
+
+import UserIndex from '@/pages/admin/users/UserIndex.vue'
+import CreateUser from '@/pages/admin/users/CreateUsers.vue'
+import EditUser from '@/pages/admin/users/EditUser.vue'
 
 import UserLayout from '../layouts/UserLayout.vue'
 import Home from '../pages/user/HomeView.vue'
 import Bookings from '../pages/user/MyBookings.vue'
 
-import EventsPage from '@/pages/admin/EventsPage.vue'
+import IndexEvent from '@/pages/admin/events/IndexEvent.vue'
+import EventsCreate from '@/pages/admin/events/EventsCreate.vue'
+import EventsEdit from '@/pages/admin/events/EventEdit.vue'
+
 import UserEvent from '@/pages/user/UserEvent.vue'
 import Profile from '@/pages/Profile.vue'
 import api from '@/utils/api'
+// import { meta } from 'eslint-plugin-vue'
 
 const routes = [
   {
@@ -33,16 +40,7 @@ const routes = [
     name: 'Register',
     component: Register,
   },
-  {
-    path: '/about',
-    name: 'About',
-    component: About,
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-  },
+
   {
     path: '/',
     component: UserLayout,
@@ -50,6 +48,8 @@ const routes = [
       { path: 'home', name: 'Home', component: Home },
       { path: 'bookings', name: 'Bookings', component: Bookings },
       { path: 'events', name: 'UserEvent', component: UserEvent },
+      { path: 'about', name: 'About', component: About },
+      { path: '/profile', name: 'Profile', component: Profile },
     ],
   },
   {
@@ -57,8 +57,12 @@ const routes = [
     component: AdminLayout,
     children: [
       { path: 'dashboard', name: 'Dashboard', component: DashboardPage },
-      { path: 'users', name: 'Users', component: UserManagement },
-      { path: 'events', name: 'Events', component: EventsPage },
+      { path: 'users', name: 'Users', component: UserIndex },
+      { path: '/users/create', name: 'CreateUsers', component: CreateUser },
+      { path: '/users/:id/edit', name: 'EditUsers', component: EditUser },
+      { path: 'events', name: 'Events', component: IndexEvent },
+      { path: '/events/create', name: 'CreateEvents', component: EventsCreate },
+      { path: '/events/:id/edit', name: 'EditEvents', component: EventsEdit },
     ],
   },
   {
@@ -86,21 +90,21 @@ const routes = [
       }
     },
   },
-];
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
-  router.beforeEach((to, from, next) => {
-    const userStore = useUserStore()
-    const isLoggedIn = !!userStore.token
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  const isLoggedIn = !!userStore.token
 
-    if (to.meta.requiresAuth && !isLoggedIn) {
-      return next({ name: 'login' })
-    }
-    next()
-  })
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    return next({ name: 'login' })
+  }
+  next()
+})
 
 export default router

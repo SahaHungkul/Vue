@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', {
         interceptorId = api.interceptors.response.use(
           (res) => res,
           (error) => {
-            if (status === 401) {
+            if (error.response?.status === 401) {
               this.logout()
               window.location.href = '/login'
             }
@@ -43,24 +43,24 @@ export const useUserStore = defineStore('user', {
         res.data.token ||
         res.data.access_token ||
         res.data.data?.token ||
-        res.data?.data?.access_token;
+        res.data?.data?.access_token
 
       if (!token) {
         throw new Error('Token tidak ditemukan di response API')
       }
 
       this.setToken(token)
-      if (res.data.user){
-        this.user = res.data.user;
-      } else{
-        await this.fetchUser();
+      if (res.data.data?.user) {
+        this.user = res.data.data.user
+      } else {
+        await this.fetchUser()
       }
     },
 
     async fetchUser() {
       const res = await api.get('/me')
-      this.user = res.data?.data || res.data;
-      return this.user;
+      this.user = res.data?.data || res.data
+      return this.user
     },
 
     logout() {
@@ -71,4 +71,4 @@ export const useUserStore = defineStore('user', {
       delete api.defaults.headers.common['Authorization']
     },
   },
-});
+})

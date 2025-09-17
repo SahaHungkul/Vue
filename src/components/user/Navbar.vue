@@ -52,7 +52,7 @@ export default {
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Avatar class="w-8 h-8 cursor-pointer">
-          <img src="../../assets/hoshino.jpg" alt="User Avatar" />
+          <img src="@/assets/hoshino.jpg" alt="User Avatar" />
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

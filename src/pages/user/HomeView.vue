@@ -23,7 +23,9 @@ const userStore = useUserStore()
         </CardHeader>
         <CardContent>
           <p class="text-sm text-muted-foreground">Lihat event yang baru saja ditambahkan minggu ini.</p>
-          <Button class="mt-3 w-full">Lihat Event</Button>
+          <router-link to="/events">
+            <Button class="mt-3 w-full cursor-pointer">Lihat Event</Button>
+          </router-link>
         </CardContent>
       </Card>
 
@@ -34,7 +36,7 @@ const userStore = useUserStore()
         </CardHeader>
         <CardContent>
           <p class="text-sm text-muted-foreground">Kelola tiket yang sudah kamu pesan.</p>
-          <Button variant="secondary" class="mt-3 w-full">Lihat Tiket</Button>
+          <Button variant="secondary" class="mt-3 w-full cursor-pointer">Lihat Tiket</Button>
         </CardContent>
       </Card>
 
@@ -45,7 +47,9 @@ const userStore = useUserStore()
         </CardHeader>
         <CardContent>
           <p class="text-sm text-muted-foreground">Kenali lebih jauh tentang layanan kami.</p>
-          <Button variant="outline" class="mt-3 w-full">Pelajari</Button>
+          <router-link to="/about">
+            <Button variant="outline" class="mt-3 w-full cursor-pointer">Pelajari</Button>
+          </router-link>
         </CardContent>
       </Card>
     </div>

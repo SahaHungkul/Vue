@@ -13,7 +13,8 @@ function handleLogout() {
 </script>
 
 <template>
-  <Button @click="handleLogout" variant="destructive" class="w-full">Logout</Button>
+  <Button @click="handleLogout" variant="destructive"
+    class="text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer">Logout</Button>
 </template>
 
 <style scoped></style>

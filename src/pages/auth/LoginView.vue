@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user'
+import { useUserStore } from '../../stores/user'
 
 const email = ref('')
 const password = ref('')
@@ -30,20 +30,21 @@ async function handleLogin() {
   <div class="flex justify-center items-center min-h-screen bg-gray-100">
     <div class="w-full max-w-sm bg-white p-6 rounded shadow">
       <div class="flex justify-center mb-4">
-        <img src="../assets/yuzu.jpg" alt="Logo" class="w-16 h-16 rounded-full shadow" />
+        <img src="@/assets/yuzu.jpg" alt="Logo" class="w-16 h-16 rounded-full shadow" />
       </div>
       <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Login</h2>
       <form @submit.prevent="handleLogin" class="space-y-3">
         <div>
           <label class="block text-sm font-medium text-gray-700">Email</label>
-          <input v-model="email" type="email" class="w-full border p-2 rounded sm:text-sm" required />
+          <input v-model="email" type="email" class="w-full border p-2 rounded sm:text-sm" placeholder="email"
+            required />
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Password</label>
           <div class="relative">
             <input v-model="password" :type="showPassword ? 'text' : 'password'"
-              class="w-full border p-2 rounded sm:text-sm" required />
+              class="w-full border p-2 rounded sm:text-sm" placeholder="password" required />
             <button type="button" @click="showPassword = !showPassword"
               class="absolute right-2 top-2 text-gray-500 hover:text-gray-700">
               {{ showPassword ? '🙈' : '👁️' }}
